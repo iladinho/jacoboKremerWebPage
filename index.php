@@ -55,9 +55,9 @@
                     <li>
                         <a href="index.html">Inicio</a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="about.html">Acerca de mi</a>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="blog.html">Catalogo</a>
                     </li>
