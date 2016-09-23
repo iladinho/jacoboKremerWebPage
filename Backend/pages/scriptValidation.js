@@ -39,6 +39,7 @@ $(document).ready(function() {
             if (response.success) {
                 document.getElementById("response-container").className = "alert alert-success";
                 $("#response-container").html(response.data.message);
+                document.getElementById("response-container").style.fontSize = "16px";
             } else {
                 document.getElementById("response-container").className = "alert alert-danger";
                 $("#response-container").html('No se pudo ingresar: ' + response.data.message);
