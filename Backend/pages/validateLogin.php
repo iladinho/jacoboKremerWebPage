@@ -1,25 +1,60 @@
 <?php
-$link = mysqli_connect("localhost", "root", "");
-mysqli_select_db($link, "catalogo_ropa");
 
-$user = json_decode($_POST['usuario']);
-$pass = $user = json_decode($_POST['contrasena']);
-error_log($user, 3, "errors.log");
-
-$result = mysqli_query($link, "SELECT * FROM usuarios");
-while ($fila = mysqli_fetch_array($result)){
-mostrarDatos($fila);
+if( isset($_POST['usuario'])  && isset($_POST['contrasena'])  ) {
+  get_persons($_POST['usuario'],$_POST['contrasena']);
+} else {
+  die("Solicitud no válida.");
 }
 
-mysqli_free_result($result);
-mysqli_close($link);
+function get_persons( $usuario, $contrasena ) {
+ 
+	 //Cambia por los detalles de tu base datos
+	 $dbserver = "localhost";
+	 $dbuser = "root";
+	 $password = "";
+	 $dbname = "catalogo_ropa";
+	 
+	 $database = new mysqli($dbserver, $dbuser, $password, $dbname);
 
-function mostrarDatos ($resultados) {
-	if ($resultados !=NULL) {
-		echo "- Nombre: ".$resultados['nombre']."<br/> ";
-		echo "**********************************<br/>";
+	 if($database->connect_errno) {
+	   die("No se pudo conectar a la base de datos");
+	 }
+
+	$jsondata = array();
+	$querywhere = "WHERE usuario = '" . $usuario. "' AND contrasena = '".$contrasena."'" ;
+
+	 	error_log($querywhere, 3, "error.log");
+
+	 
+	if ( $result = $database->query( "SELECT * FROM usuarios " . $querywhere)) {
+		if( $result->num_rows > 0 ) {
+		    $jsondata["success"] = true;
+		    $jsondata["data"]["message"] = sprintf("Exito");
+		    while( $row = $result->fetch_object() ) {
+		       $jsondata["data"]["user"][] = $row;
+		     }
+
+	    }else{
+		    $jsondata["success"] = false;
+		    $jsondata["data"] = array(
+		      'message' => 'usuario o contraseña invalidos'
+		    );
+	    }
+
+	   	$result->close();
+	 
+	}else{
+	 
+	   	$jsondata["success"] = false;
+	    $jsondata["data"] = array(
+	      'message' => $database->error
+	    );
 	}
-	else {
-		echo "<br/>No hay más datos!!! <br/>";
-	}
+	 
+	  header('Content-type: application/json; charset=utf-8');
+	  echo json_encode($jsondata);
+	 
+	  $database->close();
 }
+
+?>
