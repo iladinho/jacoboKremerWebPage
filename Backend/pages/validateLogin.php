@@ -29,7 +29,7 @@ function get_persons( $usuario, $contrasena ) {
 	if ( $result = $database->query( "SELECT * FROM usuarios " . $querywhere)) {
 		if( $result->num_rows > 0 ) {
 		    $jsondata["success"] = true;
-		    $jsondata["data"]["message"] = sprintf("Exito");
+		    $jsondata["data"]["message"] = "Exito";
 		    while( $row = $result->fetch_object() ) {
 		       $jsondata["data"]["user"][] = $row;
 		     }
