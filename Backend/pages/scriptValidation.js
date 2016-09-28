@@ -40,6 +40,7 @@ $(document).ready(function() {
                 document.getElementById("response-container").className = "alert alert-success";
                 $("#response-container").html(response.data.message);
                 document.getElementById("response-container").style.fontSize = "16px";
+                setTimeout ("redirection()", 1000);
             } else {
                 document.getElementById("response-container").className = "alert alert-danger";
                 $("#response-container").html('No se pudo ingresar: ' + response.data.message);
@@ -57,3 +58,8 @@ $(document).ready(function() {
     });
     
 });
+function redirection(){  
+
+ window.location ="articulos.html";
+
+ }
