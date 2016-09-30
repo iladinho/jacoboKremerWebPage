@@ -2,3 +2,7 @@
 	border-color:red;
 	font-size:50px;
 }
+
+tfoot {
+    display: table-header-group;
+}
