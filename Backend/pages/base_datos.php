@@ -16,29 +16,22 @@ function conectar_base(){
        }
     }
 
-   function select_generico($table,$fields,$querywhere=""){
-       $database = conectar_base();
+   function select_generico($database,$table,$fields,$querywhere=""){
        $jsondata = array();
        $result = $database->query( "SELECT ".$fields." FROM  ".$table." ". $querywhere);
        if ( $result = $database->query( "SELECT ".$fields." FROM  ".$table." ". $querywhere)) {
            if( $result->num_rows > 0 ) {
-               $jsondata["success"] = true;
-               while( $row = $result->fetch_object() ) {
-                   $jsondata["data"][$table][] = $row;
+               while( $row = $result->fetch_assoc() ) {
+                   $jsondata["data"]= $row;
                 }
-                
             }else{
-                $jsondata["success"] = false;
-                $jsondata["data"] = array(
+                $jsondata = array(
                     'message' => 'Error'
                 );
             }
-            
             $result->close();
-            
         }else{
-            $jsondata["success"] = false;
-            $jsondata["data"] = array(
+            $jsondata = array(
                 'message' => $database->error
             );
         }
