@@ -40,30 +40,60 @@ var dataSet = [
 
 
 $(document).ready(function() {
+        
+    // Al hacer click sobre cualquier elemento que tenga el atributo data-user.....
+   
+       $.ajax({
+              url: "articulos.php",
+              method: "get",
+              dataType: "json",
+              data: { 
+              }
+            })
+
+        .done(function(response) {
+            if (response.success) {
+                alert("gane");
+            } else {
+               alert("perdi");
+            }
+            
+        })
+        
+        .fail(function(jqXHR, textStatus, errorThrown) {
+           alert("falle");
+            
+        });
+
     // Setup - add a text input to each footer cell
     $('#example tfoot th').each( function () {
         var title = $(this).text();
         $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
     } );
- 
+    
     // DataTable
     var table = $('#example').DataTable({
         data: dataSet,
         responsive:true
-
+        
     });
-
- 
+    
+    
     // Apply the search
-  
-
+    
+    
     table.columns().eq(0).each(function (colIdx) {
         $('input', table.column(colIdx).footer()).on('keyup change', function () {
             table.column (colIdx)
-                     .search (this.value, true, false)
-                     .draw ();
+            .search (this.value, true, false)
+            .draw ();
         } );
     } );
-
-
+    
+    
 } );
+        function redirection(){  
+        
+         window.location ="articulos.html";
+        
+         }
