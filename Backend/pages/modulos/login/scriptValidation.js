@@ -60,6 +60,6 @@ $(document).ready(function() {
 });
 function redirection(){  
 
- window.location ="articulos.html";
+ window.location ="/pages/modulos/articulos/articulos.html";
 
  }

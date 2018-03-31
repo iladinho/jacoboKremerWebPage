@@ -51,10 +51,10 @@ function get_persons( $usuario, $contrasena ) {
 	    );
 	}
 	 
-	  header('Content-type: application/json; charset=utf-8');
+	$database->close();
+	header('Content-type: application/json; charset=utf-8');
 	  echo json_encode($jsondata);
 	 
-	  $database->close();
 }
 
 ?>

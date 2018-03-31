@@ -1,5 +1,6 @@
 var dataSet = [];
 $(document).ready(function() { 
+    add_links_scripts();
        $.ajax({
               url: "articulos.php",
               method: "POST",
@@ -17,8 +18,7 @@ $(document).ready(function() {
                     //ARTICLES TABLE CREATION
 /*-------------------------------------------------------------------------------------------------------------*/
                     var table = $('#example').DataTable({
-                        data: dataSet,
-                        responsive:true,
+                        data: dataSet
                     });
 
                     //Get article id on clicking row
@@ -46,10 +46,3 @@ $(document).ready(function() {
                 }
         });
 });
-
-
-        // function redirection(){  
-        
-        //  window.location ="articulos.html";
-        
-        //  }
