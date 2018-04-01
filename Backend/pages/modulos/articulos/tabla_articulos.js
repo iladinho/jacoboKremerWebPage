@@ -1,6 +1,6 @@
 var dataSet = [];
 $(document).ready(function() { 
-    add_links_scripts();
+    // add_links_scripts_new();
        $.ajax({
               url: "articulos.php",
               method: "POST",
